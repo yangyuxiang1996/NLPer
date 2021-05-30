@@ -209,10 +209,10 @@ def predict(word2id,model,seq_lenth ,path):
 
 ## 结果
 
-| 模型             | accuracy | f1_score | recall |
-| ---------------- | -------- | -------- | ------ |
-| BiLSTM+Attention | 0.84     |          |        |
-| BiLSTM           |          |          |        |
+|       模型       | accuracy |
+| :--------------: | :------: |
+| BiLSTM+Attention |   0.85   |
+|      BiLSTM      |   0.83   |
 
 
 
