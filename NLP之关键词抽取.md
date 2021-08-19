@@ -4,7 +4,7 @@
 
 关键词提取的常见方法：
 
-<img src="/Volumes/yyx/学习/NLP知识体系/images/image-20210817170048973.png" alt="image-20210817170048973" style="zoom:50%;" />
+<img src="https://tva1.sinaimg.cn/large/008i3skNly1gtmgueh0nrj60yi0u0dhk02.jpg" alt="image-20210817170048973" style="zoom:50%;" />
 
 关键词是代表文章重要内容的一组词。对文本聚类、分类、自动摘要等起重要作用。此外，它还能使人们便捷地浏览和获取信息。 类似于其他的机器学习方法，关键词提取算法一般也可以分为有监督和无监督两类:
 
@@ -36,7 +36,7 @@ tf \times idf(i, j) = {tf}_{ij} \times {idf}_{i} = \frac{n_{ij}}{\sum_{k} n_{kj}
 $$
 含义：
 
-<img src="/Volumes/yyx/学习/NLP知识体系/images/image-20210817173721125.png" alt="image-20210817173721125" style="zoom:50%;" />
+<img src="images/image-20210817173721125.png" alt="image-20210817173721125" style="zoom:50%;" />
 
 - TF 算法是统计一个词在一篇文档中出现的频次，其基本思想是，一个词在文档中出现的次数越多，则其对文档的表达能力就越强
 - IDF 算法则是统计一个词在文档集的多少个文档中出现，其基本思想是，如果一个词在越少的文档中出现，则其对文档的区分能力也就越强
@@ -163,15 +163,15 @@ $$
 
 举个例子：
 
-<img src="/Volumes/yyx/学习/NLP知识体系/images/image-20210818162457035.png" alt="image-20210818162457035" style="zoom: 33%;" />
+<img src="images/image-20210818162457035.png" alt="image-20210818162457035" style="zoom: 33%;" />
 
 图中每一个节点代表一个webpage，我们现在想要计算webpage e的权重，首先计算公式中的求和部分，展开如下：
 
-<img src="/Volumes/yyx/学习/NLP知识体系/images/image-20210818162924682.png" alt="image-20210818162924682" style="zoom:50%;" />
+<img src="images/image-20210818162924682.png" alt="image-20210818162924682" style="zoom:50%;" />
 
 因此，webpage e的权重更新公式如下：
 
-<img src="/Volumes/yyx/学习/NLP知识体系/images/image-20210818163030554.png" alt="image-20210818163030554" style="zoom: 33%;" />
+<img src="images/image-20210818163030554.png" alt="image-20210818163030554" style="zoom: 33%;" />
 
 * **不难看出，每个webpage的权重由其入站链接决定，如果入站链接的权重较高的话，相应的就会提高该page的权重，例如，如果page a引用了page e，如果page a具有较高的权重，那么page e的权重也会提高；同时，一个网站，如果越多的网站链接到它，这个网站的权重也会越高；**
 * **如果某一个网页没有被引用的话，它的权重就是1-d，控制权重不为0；**
@@ -203,17 +203,17 @@ $$
 
 将这个pair对组成的集合构建成无向图，就可以应用TextRank算法计算每一个word的权重，从而提取关键词。
 
-<img src="/Volumes/yyx/学习/NLP知识体系/images/image-20210818172144463.png" alt="image-20210818172144463" style="zoom:50%;" />
+<img src="images/image-20210818172144463.png" alt="image-20210818172144463" style="zoom:50%;" />
 
 不难发现，相对于PageRank里的无权有向图，这里建立的是无权无向图，原论文中对于关键词提取任务主要也是构建的无向无权图，对于有向图，论文提到是基于词的前后顺序角度去考虑，即给定窗口，比如对于“长裙”来说，“淡黄”与它之间是入边，而“蓬松”与它之间是出边，但是效果都要比无向图差。
 
-<img src="/Volumes/yyx/学习/NLP知识体系/images/image-20210818175611398.png" alt="image-20210818175611398" style="zoom:50%;" />
+<img src="images/image-20210818175611398.png" alt="image-20210818175611398" style="zoom:50%;" />
 
 ### 代码
 
 逻辑：
 
-<img src="/Volumes/yyx/学习/NLP知识体系/images/image-20210819185834187.png" alt="image-20210819185834187" style="zoom:50%;" />
+<img src="images/image-20210819185834187.png" alt="image-20210819185834187" style="zoom:50%;" />
 
 
 
