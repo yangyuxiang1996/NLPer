@@ -74,7 +74,7 @@ self.decoder2 = nn.Linear(hidden_dim,n_class)
 
 ### attention部分
 
-<img src=".assets/image-20210401165132110.png" alt="image-20210401165132110" style="zoom:50%;" />
+<img src="images/image-20210401165132110.png" alt="image-20210401165132110" style="zoom:50%;" />
 $$
 att = v_a^{T}\tanh(W_a[h_t;h_s])
 $$

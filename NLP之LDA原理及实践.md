@@ -10,26 +10,26 @@
 
 先做一下前期的推导：
 
-<img src=".assets/image-20210305113814870.png" alt="image-20210305113814870" style="zoom: 25%;" />
+<img src="images/image-20210305113814870.png" alt="image-20210305113814870" style="zoom: 25%;" />
 
 假设向长度为1的桌子上扔一个红球（如上图），它会落在0到1这个范围内，设这个长度值为x，再向桌上扔一个白球，那么这个白球落在红球左边的概率即为x。 若一共扔了n次白球，其中每一次都是相互独立的，假设落在红球左边的白球数量为k，那么随机变量K服从参数为 ![[公式]](https://www.zhihu.com/equation?tex=n) 和 ![[公式]](https://www.zhihu.com/equation?tex=x) 的二项分布B(n,k)，有
 
-<img src=".assets/image-20210305114011230.png" alt="image-20210305114011230" style="zoom:50%;" />
+<img src="images/image-20210305114011230.png" alt="image-20210305114011230" style="zoom:50%;" />
 
 X服从 [0, 1] 上的均匀分布，
 
 K对每一个 ![[公式]](https://www.zhihu.com/equation?tex=x) 都有上面的分布，对于所有可能的 ![[公式]](https://www.zhihu.com/equation?tex=x) ， ![[公式]](https://www.zhihu.com/equation?tex=K) 的分布为
 
-<img src=".assets/image-20210305114136729.png" alt="image-20210305114136729" style="zoom:50%;" />
+<img src="images/image-20210305114136729.png" alt="image-20210305114136729" style="zoom:50%;" />
 
 现在，我们换一种方式来丢球：
 
 > 先将这n+1个球都丢出来，再选择一个球作为红球，任何一个球被选中的概率均为$\frac{1}{n+1}$，此时红球左边有0,1,2,...,n个球的概率均为$\frac{1}{n+1}$ ，有
 >
-> <img src=".assets/image-20210305114358163.png" alt="image-20210305114358163" style="zoom:50%;" />
+> <img src="images/image-20210305114358163.png" alt="image-20210305114358163" style="zoom:50%;" />
 > 则
 >
-> <img src=".assets/image-20210305114421172.png" alt="image-20210305114421172" style="zoom:50%;" />
+> <img src="images/image-20210305114421172.png" alt="image-20210305114421172" style="zoom:50%;" />
 
 ### Gamma函数
 
@@ -61,7 +61,7 @@ $$
 
 考虑一下这个积分：
 
-<img src=".assets/image-20210305114421172-5885306.png" alt="image-20210305114421172" style="zoom:50%;" />
+<img src="images/image-20210305114421172-5885306.png" alt="image-20210305114421172" style="zoom:50%;" />
 
 稍作变换，令$k = \alpha-1, n-k=\beta-1$,有：
 $$
@@ -84,7 +84,7 @@ $$
 
 Dirichlet分布是将Beta分布扩展到高维的情形，一般形式的Dirichlet分布定义如下：
 
-<img src=".assets/image-20210315153424877.png" alt="image-20210315153424877" style="zoom:50%;" />
+<img src="images/image-20210315153424877.png" alt="image-20210315153424877" style="zoom:50%;" />
 
 
 
@@ -101,17 +101,17 @@ Dirichlet分布是将Beta分布扩展到高维的情形，一般形式的Dirichl
 
 * **马氏链**：时间与状态都是离散的，当前时刻的状态只与上一个时刻的状态有关。
 
-  <img src=".assets/image-20210316165828619.png" alt="image-20210316165828619" style="zoom:50%;" />
+  <img src="images/image-20210316165828619.png" alt="image-20210316165828619" style="zoom:50%;" />
 
 * **平稳分布：**
 
-  <img src=".assets/image-20210316170336798.png" alt="image-20210316170336798" style="zoom:50%;" />
+  <img src="images/image-20210316170336798.png" alt="image-20210316170336798" style="zoom:50%;" />
 
   摘自《LDA数学八卦》
 
 * **细致平稳分布：**
 
-  <img src=".assets/image-20210316170903410.png" alt="image-20210316170903410" style="zoom:50%;" />
+  <img src="images/image-20210316170903410.png" alt="image-20210316170903410" style="zoom:50%;" />
 
 * **细致平稳分布是平稳分布的充分非必要条件**
 
@@ -127,19 +127,19 @@ p(i)q(i,j)\alpha(i,j) = p(j)q(j,i)\alpha(j,i)
 $$
 按照对称性，令
 
-<img src=".assets/image-20210316185005436.png" alt="image-20210316185005436" style="zoom:50%;" />
+<img src="images/image-20210316185005436.png" alt="image-20210316185005436" style="zoom:50%;" />
 
 使得
 
-<img src=".assets/image-20210316185028809.png" alt="image-20210316185028809" style="zoom:50%;" />
+<img src="images/image-20210316185028809.png" alt="image-20210316185028809" style="zoom:50%;" />
 
 成立。
 
-<img src=".assets/image-20210316185106320.png" alt="image-20210316185106320" style="zoom:50%;" />
+<img src="images/image-20210316185106320.png" alt="image-20210316185106320" style="zoom:50%;" />
 
 MCMC采样算法过程：
 
-<img src=".assets/image-20210316185151570.png" alt="image-20210316185151570" style="zoom:50%;" />
+<img src="images/image-20210316185151570.png" alt="image-20210316185151570" style="zoom:50%;" />
 
 进一步，如果接受率过小，采样过程中马氏链容易原地踏步，拒绝大量的跳转，使得马氏链遍历所有的状态空间花费时间较长，收敛到平稳分布的速度太慢，如果对接受率进行微小改造，取
 $$
@@ -156,7 +156,7 @@ p(i)q(i,j)\alpha(i,j) &= p(i)q(i,j)\min\{1, \frac{p(j)q(j,i)}{p(i)q(i,j)}\} \\
 $$
 就得到了教科书中常见的Metropolis-Hastings算法。
 
-<img src=".assets/image-20210316190036113.png" alt="image-20210316190036113" style="zoom:50%;" />
+<img src="images/image-20210316190036113.png" alt="image-20210316190036113" style="zoom:50%;" />
 
 ### Gibbs采样（吉布斯采样）
 
@@ -175,15 +175,15 @@ Gibbs算法的特殊之处在于：
 
   例如，考虑如下三维情形，
 
-  <img src=".assets/image-20210316224812431.png" alt="image-20210316224812431" style="zoom:50%;" />
+  <img src="images/image-20210316224812431.png" alt="image-20210316224812431" style="zoom:50%;" />
 
 * 接受率恒等于1
 
-  <img src=".assets/image-20210316225218220.png" alt="image-20210316225218220" style="zoom:50%;" /><img src=".assets/image-20210316225034117.png" alt="image-20210316225034117" style="zoom:50%;" />
+  <img src="images/image-20210316225218220.png" alt="image-20210316225218220" style="zoom:50%;" /><img src="images/image-20210316225034117.png" alt="image-20210316225034117" style="zoom:50%;" />
 
 * 算法流程：
 
-  <img src=".assets/image-20210316225339026.png" alt="image-20210316225339026" style="zoom:50%;" />
+  <img src="images/image-20210316225339026.png" alt="image-20210316225339026" style="zoom:50%;" />
 
 **Gibbs采样参考代码：[basic_gibbs_sampling_via_mlm.py](https://github.com/bojone/bert4keras/blob/master/examples/basic_gibbs_sampling_via_mlm.py)**
 
@@ -191,7 +191,7 @@ Gibbs算法的特殊之处在于：
 
 日常生活中，总是产生大量的文本，如果每一篇文本存储为一篇文档，那每篇文档可以看作是一个有序的词的序列$d=(w_1, w_2,w_3,...,w_n)$
 
-<img src=".assets/image-20210317110237906.png" alt="image-20210317110237906" style="zoom:50%;" />
+<img src="images/image-20210317110237906.png" alt="image-20210317110237906" style="zoom:50%;" />
 
 统计建模的目的就是学习语料库中的词序列时如何生成的模式。根据观察的角度不同，统计文本建模分为了两个流派：
 
@@ -202,35 +202,35 @@ Gibbs算法的特殊之处在于：
 
 假设语料库一共有V个词，$(v_1, v_2, v_3, ...v_V)$，最简单的unigram model如下：
 
-<img src=".assets/image-20210317110511359.png" alt="image-20210317110511359" style="zoom:40%;" />
+<img src="images/image-20210317110511359.png" alt="image-20210317110511359" style="zoom:40%;" />
 
 类似于抛硬币的贝努利实验，只不过这里的骰子是V面的，各个面的概率记为$\vec{p}=(p_1,p_2,...,p_v)$，抛这个V面的骰子的过程服从多项式分布，记为$w \sim Mult(w|\vec{p}) $。
 
 对于一篇文档$d=\vec{w}=(w_1, w_2,w_3,...,w_n)$，该文档被生成的概率为
 
-<img src=".assets/image-20210317111343271.png" alt="image-20210317111343271" style="zoom:50%;" />
+<img src="images/image-20210317111343271.png" alt="image-20210317111343271" style="zoom:50%;" />
 
 而文档和文档之间可以看作是独立的，假如语料库有多篇文档$W=(\vec{w_1}, \vec{w_2},...,\vec{w_m})$，则该语料的概率是
 
-<img src=".assets/image-20210317111550727.png" alt="image-20210317111550727" style="zoom:50%;" />
+<img src="images/image-20210317111550727.png" alt="image-20210317111550727" style="zoom:50%;" />
 
 unigram model使用的是bag of word，即假设文档之间是独立可交换的，文档中的词也是独立可交换的，假设语料中的总的词频是N，对于每一个词的发生次数$n_i$, $\vec{n}=(n_1, n_2, ...,n_v)$是一个多项式分布
 
-<img src=".assets/image-20210317111903470.png" alt="image-20210317111903470" style="zoom:50%;" />
+<img src="images/image-20210317111903470.png" alt="image-20210317111903470" style="zoom:50%;" />
 
 语料库的概率：
 
-<img src=".assets/image-20210317111934931.png" alt="image-20210317111934931" style="zoom:50%;" />
+<img src="images/image-20210317111934931.png" alt="image-20210317111934931" style="zoom:50%;" />
 
 接下来的任务就是估计模型的参数$\vec{p}$，使用极大似然估计，参数$p_i$的估计值就是
 
-<img src=".assets/image-20210317112241830.png" alt="image-20210317112241830" style="zoom:50%;" />
+<img src="images/image-20210317112241830.png" alt="image-20210317112241830" style="zoom:50%;" />
 
 2. **贝叶斯派**
 
 在贝叶斯统计学家的角度看来，一切变量都是随机变量，也就是说上帝的骰子$\vec{p}$也是随机的，
 
-<img src=".assets/image-20210317113055338.png" alt="image-20210317113055338" style="zoom:50%;" />
+<img src="images/image-20210317113055338.png" alt="image-20210317113055338" style="zoom:50%;" />
 
 上帝的骰子$\vec{p}$服从一个先验分布$p(\vec{p})$，从这个角度来说，语料库的概率：
 $$
@@ -238,29 +238,29 @@ p(W)=\int p(W|\vec{p})p(\vec{p})d\vec{p}
 $$
 注意到先前所说的每一个词的发生次数$n_i$, $\vec{n}=(n_1, n_2, ...,n_v)$是一个多项式分布，因此可以选择多项式的共轭分布——Drichlet分布作为骰子$\vec{p}$的先验分布，
 
-<img src=".assets/image-20210317113858574.png" alt="image-20210317113858574" style="zoom:50%;" />
+<img src="images/image-20210317113858574.png" alt="image-20210317113858574" style="zoom:50%;" />
 
 每次按照先验分布$p(\vec{p})$的概率选择一个骰子，然后进行多项式分布产生word
 
-<img src=".assets/image-20210317114648536.png" alt="image-20210317114648536" style="zoom:50%;" />
+<img src="images/image-20210317114648536.png" alt="image-20210317114648536" style="zoom:50%;" />
 
-<img src=".assets/image-20210317114625479.png" alt="image-20210317114625479" style="zoom:50%;" />
+<img src="images/image-20210317114625479.png" alt="image-20210317114625479" style="zoom:50%;" />
 
 $\Delta(\vec{\alpha})$是归一化因子$Dir(\vec{\alpha})$，即
 
-<img src=".assets/image-20210317114009940.png" alt="image-20210317114009940" style="zoom:50%;" />
+<img src="images/image-20210317114009940.png" alt="image-20210317114009940" style="zoom:50%;" />
 
 有了先验分布，可以直接推出后验分布
 
-<img src=".assets/image-20210317114429545.png" alt="image-20210317114429545" style="zoom:50%;" />
+<img src="images/image-20210317114429545.png" alt="image-20210317114429545" style="zoom:50%;" />
 
 在贝叶斯框架下，估计参数$\vec{p}$可以选用后验分布的极大值点，或者是参数在后验分布下的平均值，于是对每一个$p_i$，
 
-<img src=".assets/image-20210317140229359.png" alt="image-20210317140229359" style="zoom:50%;" />
+<img src="images/image-20210317140229359.png" alt="image-20210317140229359" style="zoom:50%;" />
 
 进一步，计算文本语料的生成概率：
 
-<img src=".assets/image-20210317140317514.png" alt="image-20210317140317514" style="zoom:50%;" />
+<img src="images/image-20210317140317514.png" alt="image-20210317140317514" style="zoom:50%;" />
 
 ## 主题模型
 
@@ -276,25 +276,25 @@ $\Delta(\vec{\alpha})$是归一化因子$Dir(\vec{\alpha})$，即
 
 根据频率派和贝叶斯派两大观点，主题模型也包括了两种：PLSA模型和LDA主题模型。
 
-<img src=".assets/20141206001916157.jpeg" alt="img" style="zoom:75%;" />
+<img src="images/20141206001916157.jpeg" alt="img" style="zoom:75%;" />
 
 简要介绍一下PLSA主题模型的大致原理，生成一篇文章，首先确定好主题分布$p(z|d)$和词汇分布$p(w|z)$，如图，假设主题分布为{"情感"：0.1，“事物”：0.5，“行动”：0.4}，按照概率选取某一主题，在该主题下，按照概率产生相应的单词。由于主题分布和词汇分布服从多项式分布，因此可以很方便地利用极大似然估计来求解概率分布的参数。
 
-<img src=".assets/20141127192035125-20210317231734104.jpeg" alt="img" style="zoom:75%;" />
+<img src="images/20141127192035125-20210317231734104.jpeg" alt="img" style="zoom:75%;" />
 
 本文所介绍的LDA(Latent Dirichlet Allocation)主题模型是属于贝叶斯流派的一种，实际上就是在PLSA主题模型的基础上加了两个Dirichlet分布。在贝叶斯的观点下，一切未知参数都是随机变量，不能认为是某一个固定的值。因此，在文档生成的过程中，主题分布和词汇分布都是未知的，但是均服从Dirichlet先验分布。比如{P(zi), i =1,2,3 }等于{0.4,0.5,0.1}或{0.2,0.2,0.6} ， 是由dirichlet先验给定的，不是根据文档产生的。所以，LDA生成文档的过程中，先从dirichlet先验中“随机”抽取出主题分布，然后从主题分布中“随机”抽取出主题，最后从确定后的主题对应的词分布中“随机”抽取出词。
 
 LDA主题模型：
 
-<img src=".assets/image-20210317145350742.png" alt="image-20210317145350742" style="zoom:50%;" />
+<img src="images/image-20210317145350742.png" alt="image-20210317145350742" style="zoom:50%;" />
 
-<img src=".assets/image-20210317145659728.png" alt="image-20210317145659728" style="zoom:50%;" />
+<img src="images/image-20210317145659728.png" alt="image-20210317145659728" style="zoom:50%;" />
 
 ### 物理过程
 
 使用概率图模型表示，LDA主题模型的游戏过程如图所示
 
-<img src=".assets/image-20210317153153017.png" alt="image-20210317153153017" style="zoom:40%;" />
+<img src="images/image-20210317153153017.png" alt="image-20210317153153017" style="zoom:40%;" />
 
 这个概率图可以分解成两个物理过程，对应文本生成的两个过程：
 
@@ -305,11 +305,11 @@ $\vec{\alpha}, \vec{\beta}$都是Drichlet分布作为先验分布。
 
 有了以上参数的定义后，可以写出第m篇文章生成的联合概率分布：
 
-<img src=".assets/image-20210317152308838.png?lastModify=1615972845" alt="image-20210317152308838" style="zoom:50%;" />
+<img src="images/image-20210317152308838.png?lastModify=1615972845" alt="image-20210317152308838" style="zoom:50%;" />
 
 第一个过程，整体是一个Dirichlet-Multinomial共轭结构：
 
-<img src=".assets/image-20210317161137309.png" alt="image-20210317161137309" style="zoom:50%;" />
+<img src="images/image-20210317161137309.png" alt="image-20210317161137309" style="zoom:50%;" />
 
 有
 $$
@@ -326,13 +326,13 @@ $$
 
 由于语料库中M篇文档的topics生成过程相互独立，所以我们得到M个相互独立的Dirichlet-Multinomial共轭结构，从而可以得到整个语料库中topics的生成概率：
 
-<img src=".assets/image-20210317170651298.png" alt="image-20210317170651298" style="zoom:50%;" />
+<img src="images/image-20210317170651298.png" alt="image-20210317170651298" style="zoom:50%;" />
 
 生成完语料中所有词的topic，然后对每个词在给定topic的条件下生成word。
 
 在第二个物理过程中，在$k=z_{m,n}$条件的限制下，语料中任意两个由topic k生成的词都是可交换的，因此可以不再考虑文档的概率，转而考虑由同一个topic生成的词。同样的，第二个物理过程也对应着一个Dirichlet-Multinomial共轭结构：
 
-<img src=".assets/image-20210317171317819.png" alt="image-20210317171317819" style="zoom:50%;" />
+<img src="images/image-20210317171317819.png" alt="image-20210317171317819" style="zoom:50%;" />
 
 同理可以得到：
 $$
@@ -344,11 +344,11 @@ $$
 
 进一步可以得到整个语料中词生成的概率：
 
-<img src=".assets/image-20210317171746394.png" alt="image-20210317171746394" style="zoom:50%;" />
+<img src="images/image-20210317171746394.png" alt="image-20210317171746394" style="zoom:50%;" />
 
 结合两个物理过程，最终得到整个语料库的生成概率：
 
-<img src=".assets/image-20210317171836341.png" alt="image-20210317171836341" style="zoom:50%;" />
+<img src="images/image-20210317171836341.png" alt="image-20210317171836341" style="zoom:50%;" />
 
 ### Gibbs sampling
 
@@ -356,7 +356,7 @@ $$
 
 首先，回顾一下LDA主题模型的概率图结构：
 
-<img src=".assets/20141120172828681.png" alt="img" style="zoom:50%;" />
+<img src="images/20141120172828681.png" alt="img" style="zoom:50%;" />
 
 参数说明：
 
@@ -394,7 +394,7 @@ LDA的目标是得到主题的多项式分布和词语的多项式分布，估�
 
 我们已经知道LDA模型的文档建模的联合分布：
 
-<img src=".assets/image-20210317171836341.png" alt="image-20210317171836341" style="zoom:50%;" />
+<img src="images/image-20210317171836341.png" alt="image-20210317171836341" style="zoom:50%;" />
 
 有了联合分布，我们就可以求Gibbs采样需要的条件分布$p(z_i=k| \vec w,\vec z_{\neg i})$，需要注意的是这里的i是一个二维下标(m,n)，表示第m篇文章的第n个单词
 
@@ -404,17 +404,17 @@ p(z_i=k| \vec w,\vec z_{\neg i}) \propto p(z_i=k, w_i =t| \vec w_{\neg i},\vec z
 $$
 Gibbs Sampling公式推导比较复杂，这里直接借用《LDA数学八卦的结果》：
 
-<img src=".assets/image-20210317190149672.png" alt="image-20210317190149672" style="zoom:50%;" />
+<img src="images/image-20210317190149672.png" alt="image-20210317190149672" style="zoom:50%;" />
 
-<img src=".assets/image-20210317191514125.png" alt="image-20210317191514125" style="zoom:50%;" />
+<img src="images/image-20210317191514125.png" alt="image-20210317191514125" style="zoom:50%;" />
 
 最终得到每个词对应主题的Gibbs采样的条件概率公式：
 
-<img src=".assets/image-20210317191549118.png" alt="image-20210317191549118" style="zoom:50%;" />
+<img src="images/image-20210317191549118.png" alt="image-20210317191549118" style="zoom:50%;" />
 
 公式右边其实就是$p(topic|doc)·p(word|topic)$，这个概率其实就是doc -> topic -> word的路径概率，由于topic有K个，所以Gibbs sampling公式的物理意义就是在这K条路径中进行采样。
 
-<img src=".assets/image-20210317191906521.png" alt="image-20210317191906521" style="zoom:50%;" />
+<img src="images/image-20210317191906521.png" alt="image-20210317191906521" style="zoom:50%;" />
 
 有了这个公式，我们就可以用Gibbs采样去采样所有词的主题，当Gibbs采样收敛后，即得到所有词的采样主题。
 
@@ -424,7 +424,7 @@ Gibbs Sampling公式推导比较复杂，这里直接借用《LDA数学八卦的
 
 现在我们总结下LDA Gibbs采样算法流程。首先是训练流程：
 
-<img src=".assets/image-20210317192137014.png" alt="image-20210317192137014" style="zoom:50%;" />
+<img src="images/image-20210317192137014.png" alt="image-20210317192137014" style="zoom:50%;" />
 
 通常，在LDA模型训练的过程中，取Gibbs Sampling收敛之后的n个迭代的结果进行平均来做参数估计，这样可以得到质量更高的模型。
 
@@ -432,7 +432,7 @@ Gibbs Sampling公式推导比较复杂，这里直接借用《LDA数学八卦的
 
 
 
-<img src=".assets/image-20210317192437379.png" alt="image-20210317192437379" style="zoom:50%;" />
+<img src="images/image-20210317192437379.png" alt="image-20210317192437379" style="zoom:50%;" />
 
 ## 实践
 

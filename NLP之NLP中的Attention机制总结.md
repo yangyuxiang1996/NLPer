@@ -12,11 +12,11 @@ Attention（注意力机制），是一种能够让模型聚焦于某一些特�
 
 2015年，文章《Neural machine translation by jointly learning to align and translate》首次将Attention应用于NLP领域中的机器翻译任务，提出了最经典的 Attention 结构（additive attention，又叫 bahdanau attention），并形象直观地展示了 attention 带来源语目标语的对齐效果，解释深度模型到底学到了什么。
 
-![image-20210413112717931](.assets/image-20210413112717931.png)
+![image-20210413112717931](images/image-20210413112717931.png)
 
 对于输入句子的每一个单词$x_t$，经过双向RNN block（常用的有LSTM、GRU）后获得对应的encoder output $h_t$，在decoder阶段，时刻t的decoder state需要关注整个句子的上下文信息，从中判断出哪些比较重要，重要的进行保留。一个很合理的想法就是对于encoder阶段得到的每一个word的output，赋予一个权重，这里的核心就是权重的计算，即score function的计算，论文中采用的是经典的加法操作，被称之为**additive attention**：
 
-![image-20210413113837683](.assets/image-20210413113837683.png)
+![image-20210413113837683](images/image-20210413113837683.png)
 
 这个公式也有写法，因此也被称之为**concat attention**：
 $$
@@ -24,11 +24,11 @@ $$
 $$
 这里$s_{t-1}$表示上一时刻的hidden state，$h_j$表示当前的encoder output，$W_a \in \R^{n \times n}$和$U_a \in \R^{n \times 2n}$分别是两个线性变换的参数矩阵，经过tanh激活函数和线性变换后得到当前时刻decoder的attention $e_{ij}$。这个attention经过normalization（多用softmax函数）后得到attention weights $\alpha_{ij}$：
 
-![image-20210413114619485](.assets/image-20210413114619485.png)
+![image-20210413114619485](images/image-20210413114619485.png)
 
 attention weights和encoder output相乘并求和得到context vector：
 
-![image-20210413114806353](.assets/image-20210413114806353.png)
+![image-20210413114806353](images/image-20210413114806353.png)
 
 2015年 EMNLP 《Effective Approaches to Attention-based Neural Machine Translation》在基础 attention 上开始研究一些变化操作，尝试不同的 score-function，不同的 alignment-function。文章中使用的 Attention（**multiplicative attention** 或者 又叫 Luong attention）结构也被广泛应用。
 $$
@@ -44,7 +44,7 @@ $$
 
 Attention的类型这么多，在读paper的时候不免让人眼花缭乱，但是，归根到底，所有的Attention都可以用三个阶段来表示：score function --> alignment function --> generate context vector function，翻译过来即先计算分数，然后进行对齐，最后计算上下文向量，一个典型的Attention模块如下图所示：
 
-![image-20210413141251314](.assets/image-20210413141251314.png)
+![image-20210413141251314](images/image-20210413141251314.png)
 
 分解一下：
 
@@ -54,7 +54,7 @@ Attention的类型这么多，在读paper的时候不免让人眼花缭乱，但
 
 可以看出，Attention的最灵活的部分就在于score function的计算，论文对Attention进行魔改也多集中在此，这一过程可以类比于给定一个query，计算该query与一系列key的相似性，最后利用相似性和value计算得到final vector。
 
-![image-20210413142447632](.assets/image-20210413142447632.png)
+![image-20210413142447632](images/image-20210413142447632.png)
 
 这其实也就描述了Attention的本质：**Attention 机制的实质其实就是一个寻址（addressing）的过程**，如上图所示：给定一个和任务相关的查询 Query 向量 q，通过计算与 Key 的注意力分布并附加在 Value 上，从而计算 Attention Value，这个过程实际上是 **Attention 机制缓解神经网络模型复杂度的体现**：不需要将所有的 N 个输入信息都输入到神经网络进行计算，只需要从 X 中选择一些和任务相关的信息输入给神经网络。
 
@@ -107,12 +107,12 @@ Attention的类型[1]：
 
 |          Name          |                   Alignment score function                   | 描述                                                       |                           Citation                           |
 | :--------------------: | :----------------------------------------------------------: | ---------------------------------------------------------- | :----------------------------------------------------------: |
-| Content-base attention | ![image-20210413143452206](.assets/image-20210413143452206.png) | 余弦相似性                                                 |        [Graves2014](https://arxiv.org/abs/1410.5401)         |
-|      Additive(*)       | ![image-20210413143546586](.assets/image-20210413143546586.png) | concat，然后进行线性变换                                   |     [Bahdanau2015](https://arxiv.org/pdf/1409.0473.pdf)      |
-|     Location-Base      | ![image-20210413143535978](.assets/image-20210413143535978.png) | 直接线性变换                                               |      [Luong2015](https://arxiv.org/pdf/1508.04025.pdf)       |
-|        General         | ![image-20210413143600018](.assets/image-20210413143600018.png) | multiplicative attention，先做线性变换，再点积             |      [Luong2015](https://arxiv.org/pdf/1508.04025.pdf)       |
-|      Dot-Product       | ![image-20210413143613481](.assets/image-20210413143613481.png) | 直接计算点积，最简单，当query和key在同一空间下可以这样计算 |       [Luong2015](https://arxiv.org/pdf/1508.4025.pdf)       |
-| Scaled Dot-Product(^)  | ![image-20210413143627591](.assets/image-20210413143627591.png) | 点积的基础上乘以缩放因子，n为source的hidden state的维度    | [Vaswani2017](http://papers.nips.cc/paper/7181-attention-is-all-you-need.pdf) |
+| Content-base attention | ![image-20210413143452206](images/image-20210413143452206.png) | 余弦相似性                                                 |        [Graves2014](https://arxiv.org/abs/1410.5401)         |
+|      Additive(*)       | ![image-20210413143546586](images/image-20210413143546586.png) | concat，然后进行线性变换                                   |     [Bahdanau2015](https://arxiv.org/pdf/1409.0473.pdf)      |
+|     Location-Base      | ![image-20210413143535978](images/image-20210413143535978.png) | 直接线性变换                                               |      [Luong2015](https://arxiv.org/pdf/1508.04025.pdf)       |
+|        General         | ![image-20210413143600018](images/image-20210413143600018.png) | multiplicative attention，先做线性变换，再点积             |      [Luong2015](https://arxiv.org/pdf/1508.04025.pdf)       |
+|      Dot-Product       | ![image-20210413143613481](images/image-20210413143613481.png) | 直接计算点积，最简单，当query和key在同一空间下可以这样计算 |       [Luong2015](https://arxiv.org/pdf/1508.4025.pdf)       |
+| Scaled Dot-Product(^)  | ![image-20210413143627591](images/image-20210413143627591.png) | 点积的基础上乘以缩放因子，n为source的hidden state的维度    | [Vaswani2017](http://papers.nips.cc/paper/7181-attention-is-all-you-need.pdf) |
 
 ## Attention in Transformer 
 

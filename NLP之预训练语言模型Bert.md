@@ -15,33 +15,21 @@
 
   * 预训练语言模型：利用两个独立的单向语言模型实现双向语言模型
 
-    <img src=".assets/image-20210522110847155.png" alt="image-20210522110847155" style="zoom:50%;" />
+    <img src="images/image-20210522110847155.png" alt="image-20210522110847155" style="zoom:50%;" />
 
   * Deep contextualized word representations
 
 * **GPT**:
 
-  <img src=".assets/OpenAI-GPT-transformer-decoder.png" alt="OpenAI GPT transformer decoder" style="zoom: 25%;" />
+  <img src="images/OpenAI-GPT-transformer-decoder.png" alt="OpenAI GPT transformer decoder" style="zoom: 25%;" />
 
-  
+## BERT模型（structure）
 
-  
-
-
+<img src="images/image-20210522111202262.png" alt="image-20210522111202262" style="zoom:50%;" />
 
 
 
-
-
-
-
-## 模型（structure）
-
-<img src=".assets/image-20210522111202262.png" alt="image-20210522111202262" style="zoom:50%;" />
-
-
-
-<img src=".assets/image-20210522111126405.png" alt="image-20210522111126405" style="zoom:50%;" />
+<img src="images/image-20210522111126405.png" alt="image-20210522111126405" style="zoom:50%;" />
 
 
 
@@ -51,17 +39,15 @@
 
 * Masking Language Model(MLM)
 
-  
-
 * Next Sentence Prediction(NSP)
 
-  <img src=".assets/image-20210522111110624.png" alt="image-20210522111110624" style="zoom:50%;" />
+  <img src="images/image-20210522111110624.png" alt="image-20210522111110624" style="zoom:50%;" />
 
 
 
 ## 微调（fine-tuning）
 
-<img src=".assets/image-20210522111004897.png" alt="image-20210522111004897" style="zoom:50%;" />
+<img src="images/image-20210522111004897.png" alt="image-20210522111004897" style="zoom:50%;" />
 
 
 
@@ -79,7 +65,7 @@
 
 ## 比较
 
-<img src=".assets/image-20210522113832303.png" alt="image-20210522113832303" style="zoom:50%;" />
+<img src="images/image-20210522113832303.png" alt="image-20210522113832303" style="zoom:50%;" />
 
 
 

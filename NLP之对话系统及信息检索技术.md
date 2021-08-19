@@ -8,7 +8,7 @@
 
   * **闲聊式对话系统**
 
-    <img src=".assets/image-20210415223512074.png" alt="image-20210415223512074" style="zoom: 33%;" />
+    <img src="images/image-20210415223512074.png" alt="image-20210415223512074" style="zoom: 33%;" />
 
     一般需要先做意图识别，对输入文本进行分类：positive or negative，然后作为第一个token控制decoder的输出，是的输出的text符合情感类别。
 
@@ -16,7 +16,7 @@
 
     一般使用DB存储常见的问题Q，然后针对用户的输入，和数据库中的所有Q计算相似度，取相似度最高的Q的答案作为输出。
 
-    <img src=".assets/image-20210415224812927.png" alt="image-20210415224812927" style="zoom: 33%;" />
+    <img src="images/image-20210415224812927.png" alt="image-20210415224812927" style="zoom: 33%;" />
 
     
 
@@ -279,7 +279,7 @@ SIF（smooth inverse frequency，平滑逆词频）是论文《[A SIMPLE BUT TOU
 
 SIF算法的计算过程如下：
 
-![在这里插入图片描述](.assets/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDkxMjQy,size_16,color_FFFFFF,t_70.png)
+![在这里插入图片描述](images/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyNDkxMjQy,size_16,color_FFFFFF,t_70.png)
 
 1. 首先对sentence进行分词，利用预训练语言模型获取每一个word的词向量$v_w$;
 
@@ -432,7 +432,7 @@ WAND(weak and)是一种搜索算法，应用在query有较多关键词或标签�
 
 一般来说，检索会用到倒排索引，根据query可以筛选出每一个item所对应的document list，但是当候选文档集合比较大时，遍历整个list所需要的开销也表较大。Wand的做法就是在筛选TopK个候选文档时，跳过一些与query相关性比较低的document，从而极大加速检索过程。
 
-<img src=".assets/image-20210518230506012.png" alt="image-20210518230506012" style="zoom:50%;" />
+<img src="images/image-20210518230506012.png" alt="image-20210518230506012" style="zoom:50%;" />
 
 Wand算法的核心思想可以概括为：**Wand 算法通过计算每个词的贡献上限来估计文档的相关性上限，并与预设的阈值比较，进而跳过一些相关性一定达不到要求的文档，从而得到提速的效果。**
 
@@ -442,15 +442,15 @@ Wand算法首先估计query中的**每个词对文档相关性贡献的上限（
 
 具体而言，在document level上来说，每一个文档我们需要记录其ID（DID），并且需要按照从小到大排序，同时需要计算query每一个item在该文档中的词频Term Frequency；在query term level上来说，需要记录其term ID，逆文档频率（IDF），并估计其在对应的候选文档列表中的相关性上限值（upper bound），这个上限值一般取TF-IDF的最大值，计算公式：
 
-<img src=".assets/image-20210518231214795.png" alt="image-20210518231214795" style="zoom:50%;" />
+<img src="images/image-20210518231214795.png" alt="image-20210518231214795" style="zoom:50%;" />
 
 这里的$a_t$是query中第t个term的IDF。那么，对于document d和query q来说，其相关性上限d与q共同出现的单词的相关性上限值和：
 
-<img src=".assets/image-20210518231505005.png" alt="image-20210518231505005" style="zoom:50%;" />
+<img src="images/image-20210518231505005.png" alt="image-20210518231505005" style="zoom:50%;" />
 
 举个例子：
 
-<img src=".assets/image-20210518231542311.png" alt="image-20210518231542311" style="zoom: 33%;" />
+<img src="images/image-20210518231542311.png" alt="image-20210518231542311" style="zoom: 33%;" />
 
 图中，query包括a，b，c三个单词，其DID均从小到大排列，不难看出，a，b，c的ub分别等于1，2，1.5，对于document d4来说，出现的单词有a和b，
 
@@ -464,7 +464,7 @@ Wand算法首先估计query中的**每个词对文档相关性贡献的上限（
 
 接着执行如下过程：
 
-<img src=".assets/image_1c8smp7961m9shgd1oqpnvgngp9.png" alt="next function" style="zoom:70%;" />
+<img src="images/image_1c8smp7961m9shgd1oqpnvgngp9.png" alt="next function" style="zoom:70%;" />
 
 
 
@@ -472,21 +472,21 @@ Wand算法首先估计query中的**每个词对文档相关性贡献的上限（
 
 1. 首先建立好倒排索引，DID按照从小到大排序，计算每一个item的相关性上限，初始化阈值为0，如下图所示
 
-<img src=".assets/image-20210518232449416.png" alt="image-20210518232449416" style="zoom:50%;" />
+<img src="images/image-20210518232449416.png" alt="image-20210518232449416" style="zoom:50%;" />
 
 2. 对于每一个item，初始化指针指向最小的DID d1，其score为2.5>0，因此，d1会作为pivot，并更新阈值为2.5；
 
 3. 接着，更新指针的位置，对于d2来说，只出现了b这一个单词，其ub=1<2.5，skip，然后b的指针更新到d3；对于d3来说，出现了b和c两个单词，其相关性上限为2<2.5，skip，b和c的指针均更新到d5；对于d5来说，出现了b，c和a三个单词，其ub=3>2.5，因此需要计算其实际score=3，然后更新pivot，并分别更新相应指针。
 
-   <img src=".assets/image-20210518232944695.png" alt="image-20210518232944695" style="zoom:50%;" />
+   <img src="images/image-20210518232944695.png" alt="image-20210518232944695" style="zoom:50%;" />
 
 4. 更新top-1；
 
-<img src=".assets/image-20210518233432225.png" alt="image-20210518233432225" style="zoom:50%;" />
+<img src="images/image-20210518233432225.png" alt="image-20210518233432225" style="zoom:50%;" />
 
 5. 更新阈值；
 
-<img src=".assets/image-20210518233604182.png" alt="image-20210518233604182" style="zoom:50%;" />
+<img src="images/image-20210518233604182.png" alt="image-20210518233604182" style="zoom:50%;" />
 
 6. 接着遍历后面的文档，但是这个例子中发现，b的文档已经更新结束，对于c和a而言，其相关性上限最大值为2<3，因此也就无需再进行遍历，全部跳过。
 
@@ -504,13 +504,13 @@ Annoy的步骤：
 
 1. 建立Annoy index，其实就是不断迭代随机生成超平面的过程，直到每一个叶子结点包含样本的个数满足最大限制；
 
-   <img src=".assets/approximate-nearest-neighbor-methods-and-vector-models-nyc-ml-meetup-28-638.jpg" alt="Split it in two halves  " style="zoom:50%;" /><img src=".assets/approximate-nearest-neighbor-methods-and-vector-models-nyc-ml-meetup-29-638-20210421161155706.jpg" alt="Split again  " style="zoom:50%;" />
+   <img src="images/approximate-nearest-neighbor-methods-and-vector-models-nyc-ml-meetup-28-638.jpg" alt="Split it in two halves  " style="zoom:50%;" /><img src="images/approximate-nearest-neighbor-methods-and-vector-models-nyc-ml-meetup-29-638-20210421161155706.jpg" alt="Split again  " style="zoom:50%;" />
 
-   <img src=".assets/approximate-nearest-neighbor-methods-and-vector-models-nyc-ml-meetup-31-638.jpg" alt="…more iterations later  " style="zoom:50%;" />![Binary tree  ](.assets/approximate-nearest-neighbor-methods-and-vector-models-nyc-ml-meetup-33-638.jpg)
+   <img src="images/approximate-nearest-neighbor-methods-and-vector-models-nyc-ml-meetup-31-638.jpg" alt="…more iterations later  " style="zoom:50%;" />![Binary tree  ](images/approximate-nearest-neighbor-methods-and-vector-models-nyc-ml-meetup-33-638.jpg)
 
 2. search，搜索，从二叉树中进行搜索，时间复杂度为O(logN)，
 
-   <img src=".assets/approximate-nearest-neighbor-methods-and-vector-models-nyc-ml-meetup-36-638.jpg" alt="Searching the tree  " style="zoom:50%;" /><img src=".assets/approximate-nearest-neighbor-methods-and-vector-models-nyc-ml-meetup-37-638-20210421161624166.jpg" alt="Problemo • The point that’s the closest isn’t necessarily in the same leaf of the binary tree • Two points that are really..." style="zoom:50%;" />
+   <img src="images/approximate-nearest-neighbor-methods-and-vector-models-nyc-ml-meetup-36-638.jpg" alt="Searching the tree  " style="zoom:50%;" /><img src="images/approximate-nearest-neighbor-methods-and-vector-models-nyc-ml-meetup-37-638-20210421161624166.jpg" alt="Problemo • The point that’s the closest isn’t necessarily in the same leaf of the binary tree • Two points that are really..." style="zoom:50%;" />
 
 
 
@@ -521,7 +521,7 @@ Annoy的步骤：
 
 **解决办法**：**search both sides  of the split**
 
-<img src=".assets/approximate-nearest-neighbor-methods-and-vector-models-nyc-ml-meetup-39-638.jpg" alt="Trick 2: many trees • Construct trees randomly many times • Use the same priority queue to search all of them at the same ..." style="zoom:50%;" /><img src=".assets/approximate-nearest-neighbor-methods-and-vector-models-nyc-ml-meetup-40-638.jpg" alt="heap + forest = best • Since we use a priority queue, we will dive down the best splits with the biggest distance • More t..." style="zoom:50%;" />
+<img src="images/approximate-nearest-neighbor-methods-and-vector-models-nyc-ml-meetup-39-638.jpg" alt="Trick 2: many trees • Construct trees randomly many times • Use the same priority queue to search all of them at the same ..." style="zoom:50%;" /><img src="images/approximate-nearest-neighbor-methods-and-vector-models-nyc-ml-meetup-40-638.jpg" alt="heap + forest = best • Since we use a priority queue, we will dive down the best splits with the biggest distance • More t..." style="zoom:50%;" />
 
 **两个tricks**：
 
@@ -556,7 +556,7 @@ HNSW（Hierarchcal Navigable Small Graph Vectors）是一种利用图来计算�
 
 HNSW算法是一步一步发展起来的，其理论经过了朴素思想到NSW，再到HNSW的发展变化，我们先来了解一下朴素思想。
 
-<img src=".assets/image-20210525154530630.png" alt="image-20210525154530630" style="zoom:40%;" />
+<img src="images/image-20210525154530630.png" alt="image-20210525154530630" style="zoom:40%;" />
 
 假如，某一个高维空间中存在这一些节点，如上图所示，节点用黑色实点表示，节点与节点之间用实线连接，构成查找图。查找图中与某一个节点相连的节点称为该节点的友节点。
 
@@ -576,7 +576,7 @@ HNSW算法是一步一步发展起来的，其理论经过了朴素思想到NSW�
 
 这一算法就是图论中的德劳内（Delaunay）三角剖分算法，如下图所示。
 
-<img src=".assets/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEyMzMzNTE=,size_16,color_FFFFFF,t_70.png" alt="img" style="zoom:50%;" />
+<img src="images/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEyMzMzNTE=,size_16,color_FFFFFF,t_70.png" alt="img" style="zoom:50%;" />
 
 但是，德劳内算法构图的时候对于每一个节点需要和所有节点进行计算才能得到友节点，因此构图时间复杂度较高，并且如果初始点和查找点距离很远的话我们需要进行多次跳转才能查到其临近，因此也没有很好的查找效率。
 
@@ -584,13 +584,13 @@ HNSW算法是一步一步发展起来的，其理论经过了朴素思想到NSW�
 
 在此基础上，**NSW算法**（**Navigable Small World**）提出了“高速公路”机制（Expressway mechanism, 这里指部分远点之间拥有线段连接，以便于快速查找）。如下：
 
-<img src=".assets/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEyMzMzNTE=,size_16,color_FFFFFF,t_70-20210526080224920.png" alt="img" style="zoom:50%;" />
+<img src="images/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTEyMzMzNTE=,size_16,color_FFFFFF,t_70-20210526080224920.png" alt="img" style="zoom:50%;" />
 
 图中黑色连线是友节点的连线，红色连线就是高速公路了，因此在查找的过程中，我们首先从enter point进入查找图，然后利用高速公路快速找到离目标节点最近的节点，然后再按照上述朴素思想的方法继续寻找，直到满足条件。
 
 查找过程比较简单易懂，关键就在于构图过程，具体看一下是怎么生成高速公路的。
 
-<img src=".assets/image-20210526081616660.png" alt="image-20210526081616660" style="zoom: 33%;" />
+<img src="images/image-20210526081616660.png" alt="image-20210526081616660" style="zoom: 33%;" />
 
 NSW算法的构图过程抛弃了德劳内三角构图法，改为朴素插入法，节点的友节点在插入的过程中会不断更新，这就大大提高了构图效率，如上图所示，假如我们现在有待插的ABCDEFG7个节点，设定友节点个数m=3， 构图过程如下：
 
@@ -652,7 +652,7 @@ return best k elements from result
 
 #### Skip List
 
-<img src=".assets/image-20210526144540633.png" alt="image-20210526144540633" style="zoom: 33%;" />
+<img src="images/image-20210526144540633.png" alt="image-20210526144540633" style="zoom: 33%;" />
 
 
 
@@ -665,13 +665,13 @@ Skip list是一个“概率型”的数据结构，可以在很多场景中替�
 * 在每一层中，-∞和+∞两个元素都出现，分别表示INT_MIN和INT_MAX；
 * 头指针指向最高一层的第一个元素。
 
-<img src=".assets/20181221201624300.png" alt="img" style="zoom:60%;" />
+<img src="images/20181221201624300.png" alt="img" style="zoom:60%;" />
 
 #### HNSW
 
 借鉴Skip list的思想，在NSW的基础上增加跳表机制，就形成了查找效率更高的HNSW算法，全称是Hierarchical Navigable Small World，分层的可导航的小世界。
 
-<img src=".assets/2018-11-27-095235.png" alt="image-20181127175235414" style="zoom:50%;" />
+<img src="images/2018-11-27-095235.png" alt="image-20181127175235414" style="zoom:50%;" />
 
 HNSW的思想是依据连接的长度（距离）将连接划分成不同的层，然后就可以在不同层中进行搜索。在这种结构中，搜索从较长的连接（最高层）开始，贪婪地遍历所有元素达到局部最小值，之后再切换到较短的连接（下层），重复该过程，直到找到最近邻的点。
 
@@ -685,9 +685,9 @@ HNSW的思想是依据连接的长度（距离）将连接划分成不同的层�
 
 ##### **查询**
 
-<img src=".assets/image-20210526153230699.png" alt="image-20210526153230699" style="zoom:50%;" />
+<img src="images/image-20210526153230699.png" alt="image-20210526153230699" style="zoom:50%;" />
 
-​																							<img src=".assets/image-20210526152816522.png" alt="image-20210526152816522" style="zoom:50%;" />	
+​																							<img src="images/image-20210526152816522.png" alt="image-20210526152816522" style="zoom:50%;" />	
 
 具体过程如下：
 
@@ -701,7 +701,7 @@ HNSW的思想是依据连接的长度（距离）将连接划分成不同的层�
 
 ##### **构图**
 
-<img src=".assets/image-20210526155432682.png" alt="image-20210526155432682" style="zoom:50%;" />
+<img src="images/image-20210526155432682.png" alt="image-20210526155432682" style="zoom:50%;" />
 
 ```python
 INSERT(hnsw, q, M, Mmax, efConstruction, mL)
@@ -774,7 +774,7 @@ if l > L
 
 #####  检索
 
-<img src=".assets/image-20210526163701697.png" alt="image-20210526163701697" style="zoom:50%;" />
+<img src="images/image-20210526163701697.png" alt="image-20210526163701697" style="zoom:50%;" />
 
 检索的过程就易懂了，首先传入构建好的图hnsw，待查询的元素q，需要返回的最近邻的数量K和动态候选list的大小*ef*，然后从最高层开始，逐层往下依次寻找每一层的最近邻作为下一层的enter point，最后在第0层查询topk的最近邻元素，并返回。
 
@@ -786,7 +786,7 @@ KD树（K-Dimensional 树的简称），是一种分割k维数据空间的数据
 
 
 
-## Faiss
+## **Faiss**
 
 [Faiss](https://github.com/facebookresearch/faiss/wiki)，全称Facebook AI Similarity Search，是Facebook开源的用于进行快速文档搜索的库。Faiss利用十亿规模的数据集构建了最邻近搜索实现，这些实现比以前报道的最新技术快了8.5倍，并结合了文献中已知的最快的GPU上的k选择算法。Faiss也是10亿个高维向量上建立了第一个k最近邻图。
 

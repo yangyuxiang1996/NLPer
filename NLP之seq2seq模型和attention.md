@@ -18,7 +18,7 @@ RNN和LSTM是处理时间序列数据最经典的模型，也是Seq2Seq模型结
 
 ## RNN
 
-<img src=".assets/image-20210323150210102.png" alt="image-20210323150210102" style="zoom:50%;" />
+<img src="images/image-20210323150210102.png" alt="image-20210323150210102" style="zoom:50%;" />
 
 对于每一个时刻的输入x，首先将其表征成向量的形式，然后传递给一个隐含层模块，产生当前时刻的预测输出$\hat{y}$，当前隐含层的状态h会传递给下一时刻的隐含层，这样就可以是模型学习到之前时刻的信息。真实y与预测$\hat{y}$产生loss，利用loss训练模型得到模型参数，最后一个时刻的h用于进行决策。
 
@@ -28,7 +28,7 @@ RNN和LSTM是处理时间序列数据最经典的模型，也是Seq2Seq模型结
 
 RNN与HMM模型在结构上是很相似的，都可以用来处理时间序列数据，但是是两个完全不同的模型，一个是传统机器学习的经典模型，一个是深度学习的经典模型。
 
-<img src=".assets/image-20210323161305945.png" alt="image-20210323161305945" style="zoom:50%;" />
+<img src="images/image-20210323161305945.png" alt="image-20210323161305945" style="zoom:50%;" />
 
 HMM包括状态转移矩阵$(h_1' \rightarrow h_2')$，状态发射矩阵$(h_1' \rightarrow x_1)$，h和x分别是隐状态和观测状态，h一般用one-hot向量表示，维数为隐状态的个数；RNN中的h理解为向量的分布式表示，h的维数受到hidden size的控制，当前时刻的隐状态向量由上一时刻的隐状态向量和输入向量共同决定。
 
@@ -36,7 +36,7 @@ HMM包括状态转移矩阵$(h_1' \rightarrow h_2')$，状态发射矩阵$(h_1' 
 
 ## RNN for LM
 
-<img src=".assets/image-20210323170523305.png" alt="image-20210323170523305" style="zoom:50%;" />
+<img src="images/image-20210323170523305.png" alt="image-20210323170523305" style="zoom:50%;" />
 
 假设我们有一文本$S=(w_1, w_2, ..., w_n)$，语言模型就是要去计算这一文本发生的概率，即
 $$
@@ -48,7 +48,7 @@ $$
 
 ## 梯度消失/爆炸
 
-<img src=".assets/image-20210323231001997.png" alt="image-20210323231001997" style="zoom:50%;" />
+<img src="images/image-20210323231001997.png" alt="image-20210323231001997" style="zoom:50%;" />
 
 为了简化，假设我们有上面这一RNN模型，图中$x_t, \hat{y_t}, h_t, J^{(t)}(\theta)$分别表示第t时刻的l输入，预测输出，隐含层状态和loss，那么有
 $$
@@ -91,19 +91,19 @@ LSTM（Long Short Term Memory Network，长短期记忆网络）
 
 * forget gate（遗忘门）：$f_{t}=\sigma _{g}(W_{f}x_{t}+U_{f}h_{t-1}+b_{f})$
 
-  <img src=".assets/LSTM3-focus-f.png" alt="img" style="zoom:36%;" />
+  <img src="images/LSTM3-focus-f.png" alt="img" style="zoom:36%;" />
 
 * input gate（输入门）：$i_{t}=\sigma _{g}(W_{i}x_{t}+U_{i}h_{t-1}+b_{i})$ ，计算输入信息中有多少需要记住，产生新的信息$\hat{C_t}$
 
-  <img src=".assets/LSTM3-focus-i.png" alt="img" style="zoom:36%;" />
+  <img src="images/LSTM3-focus-i.png" alt="img" style="zoom:36%;" />
 
 * cell状态：选择要从上一时刻的信息中遗忘和记住的部分
 
-<img src=".assets/LSTM3-focus-C.png" alt="img" style="zoom:36%;" />
+<img src="images/LSTM3-focus-C.png" alt="img" style="zoom:36%;" />
 
 * output gate（输出门）: $o_{t} =\sigma _{g}(W_{o}x_{t}+U_{o}h_{t-1}+b_{o})$
 
-  <img src=".assets/LSTM3-focus-o.png" alt="img" style="zoom:36%;" />
+  <img src="images/LSTM3-focus-o.png" alt="img" style="zoom:36%;" />
 
 
 
@@ -123,7 +123,7 @@ https://weberna.github.io/blog/2017/11/15/LSTM-Vanishing-Gradients.html
 
 ### LSTM的变体—GRU
 
-<img src=".assets/image-20210324110039077-6554844.png" alt="image-20210324110039077" style="zoom:50%;" />
+<img src="images/image-20210324110039077-6554844.png" alt="image-20210324110039077" style="zoom:50%;" />
 
 实际上就是把门的数量缩减到了2个。
 
@@ -131,21 +131,21 @@ https://weberna.github.io/blog/2017/11/15/LSTM-Vanishing-Gradients.html
 
 在一些场景下，需要同时考虑上下文关系，比如词性标注，预测一个word的词性的时候需要考虑这个词左边和右边的word，但是传统的RNN和单向的LSTM只考虑了单向的关系，不能捕获上下文关系，这也是双向LSTM提出的初衷，训练biLSTM的时候等同于同时训练两个方向相反的LSTM，两个LSTM参数不共享，这样就可以同时捕获一个word的上下文信息。
 
- <img src=".assets/Screen_Shot_2020-05-25_at_8.54.27_PM.png" alt="img" style="zoom:50%;" />
+ <img src="images/Screen_Shot_2020-05-25_at_8.54.27_PM.png" alt="img" style="zoom:50%;" />
 
 ## Seq2Seq
 
 Seq2Seq模型是一种通用的模型框架，包括encoder和decoder两部分，广泛用于文本生成等场景中
 
-<img src=".assets/image-20210324211544785.png" alt="image-20210324211544785" style="zoom:50%;" />
+<img src="images/image-20210324211544785.png" alt="image-20210324211544785" style="zoom:50%;" />
 
 在NLP中，encoder部分负责文本理解，decoder负责文本生成，encoder和decoder之间通过context vector连接。
 
-<img src=".assets/image-20210324212323185.png" alt="image-20210324212323185" style="zoom:30%;" />
+<img src="images/image-20210324212323185.png" alt="image-20210324212323185" style="zoom:30%;" />
 
 encoder部分的是需要理解的文本，产生的最后一个隐含层的向量直接作为context vector，作为decoder部分的t0时刻的输入，decoder接下来每一个时刻的输入是上一个时刻预测的输出。
 
-<img src=".assets/image-20210324220926721.png" alt="image-20210324220926721" style="zoom:40%;" />
+<img src="images/image-20210324220926721.png" alt="image-20210324220926721" style="zoom:40%;" />
 
 看一下细节部分，假如我们有“今天 天气 很 好”这样一段文本，我们想要模型输出"Today's weather is good."
 
@@ -161,7 +161,7 @@ inference阶段常用的方法是beam search。Beam search的原理其实也很�
 
 如下图所示：
 
-<img src=".assets/image-20210324225126499.png" alt="image-20210324225126499" style="zoom:50%;" />
+<img src="images/image-20210324225126499.png" alt="image-20210324225126499" style="zoom:50%;" />
 
 不难看出，beam search的时间复杂度为O(T·K^2)，T为句子长度或者经历多少时刻。
 
@@ -199,7 +199,7 @@ $$
 
 Attention机制的核心是计算出输入的句子中每个单词的重要性，使得模型的注意力能够集中在更重要的信息上，理解attention的核心操作就是做了一个softmax。
 
-<img src=".assets/image-20210324232444272.png" alt="image-20210324232444272" style="zoom:50%;" />
+<img src="images/image-20210324232444272.png" alt="image-20210324232444272" style="zoom:50%;" />
 
 简要描述一下attention过程：
 
